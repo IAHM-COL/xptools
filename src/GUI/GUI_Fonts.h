@@ -39,11 +39,19 @@ enum {
 
 void	GUI_FontDraw(
 				GUI_GraphState *				inState,
-				int 							inFontID,
+				int 							inFontID, //See the anonymous enum at the top of GUI_Fonts.h
 				const float						color[4],	//	4-part color, featuring alpha.
 				float							inX,
 				float							inY,
 				const char *					inString);
+
+void	GUI_FontDraw(
+				GUI_GraphState *				inState,
+				int 							inFontID, //See the anonymous enum at the top of GUI_Fonts.h
+				const float						color[4],	//	4-part color, featuring alpha.
+				float							inX,
+				float							inY,
+				const string& 					inString);
 
 void	GUI_FontDrawScaled(
 				GUI_GraphState *				inState,
@@ -56,6 +64,10 @@ void	GUI_FontDrawScaled(
 				const char *					inStart,
 				const char *					inEnd,
 				int								inAlign);
+
+float	GUI_MeasureRange(
+				int								inFontID,
+				const string&					string);
 
 float	GUI_MeasureRange(
 				int 							inFontID,

@@ -76,6 +76,11 @@ void	WED_ResourceMgr::Purge(void)
 	mFac.clear();
 }
 
+WED_LibraryMgr * WED_ResourceMgr::GetLib(void)
+{
+	return mLibrary;
+}
+
 bool	WED_ResourceMgr::GetObjRelative(const string& obj_path, const string& parent_path, XObj8 *& obj)
 {
 	if(GetObj(obj_path,obj))
@@ -235,7 +240,7 @@ bool	WED_ResourceMgr::GetLin(const string& path, lin_info_t& out_info)
 	return true;
 }
 
-bool	WED_ResourceMgr::GetPol(const string& path, pol_info_t& out_info)
+bool	WED_ResourceMgr::GetPol(const string& path, pol_info_t& out_info, string* full_path)
 {
 	map<string,pol_info_t>::iterator i = mPol.find(path);
 	if(i != mPol.end())
@@ -249,7 +254,10 @@ bool	WED_ResourceMgr::GetPol(const string& path, pol_info_t& out_info)
 
 	string p = mLibrary->GetResourcePath(path);
 	MFMemFile * pol = MemFile_Open(p.c_str());
-	if(!pol) return false;
+	if (!pol)
+	{
+		return false;
+	}
 
 	MFScanner	s;
 	MFS_init(&s, pol);

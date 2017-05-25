@@ -310,7 +310,8 @@ void		WED_LibraryMgr::Rescan()
 					clean_rpath(rpath);
 					if (is_no_true_subdir_path(rpath)) break; // ignore paths that lead outside current scenery directory
 					rpath=pack_base+DIR_STR+rpath;
-					AccumResource(vpath, p, rpath,false,is_default_pack, cur_status);
+					bool is_backup = MFS_string_match(&s, "EXPORT_BACKUP", false) == true;
+					AccumResource(vpath, p, rpath, is_backup, is_default_pack, cur_status);
 				}
 				else if(MFS_string_match(&s,"EXPORT_RATIO",false))
 				{

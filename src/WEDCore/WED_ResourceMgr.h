@@ -125,9 +125,9 @@ public:
 					~WED_ResourceMgr();
 
 			void	Purge(void);
-
+			WED_LibraryMgr * GetLib(void);
 			bool	GetFac(const string& path, fac_info_t& out_info);
-			bool	GetPol(const string& path, pol_info_t& out_info);
+			bool	GetPol(const string& path, pol_info_t& out_info, string* full_path=NULL);
 			bool 	SetPolUV(const string& path, Bbox2 box);
 			bool	GetLin(const string& path, lin_info_t& out_info);
 			bool	GetFor(const string& path, XObj8 *& obj);

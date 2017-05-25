@@ -161,7 +161,8 @@ void		WED_LibraryPreviewPane::MouseUp  (int x, int y, int button)
 {
 }
 
-
+#include "WED_PackageMgr.h"
+#include "WED_Globals.h"
 void	WED_LibraryPreviewPane::Draw(GUI_GraphState * g)
 {
 	int b[4];
@@ -180,7 +181,8 @@ void	WED_LibraryPreviewPane::Draw(GUI_GraphState * g)
 	fac_info_t fac;
 
 	if(!mRes.empty())
-	{	switch(mType) {
+	{
+		switch(mType) {
 		case res_Polygon:
 			if(mResMgr->GetPol(mRes,pol))
 			{
@@ -391,6 +393,25 @@ void	WED_LibraryPreviewPane::Draw(GUI_GraphState * g)
 			break;
 		}
 		
+#if DEV
+		string full_path_str = "Full path: " + gPackageMgr->ComputePath(mResMgr->GetLib()->GetLocalPackage(), mResMgr->GetLib()->GetResourcePath(mRes));
+		string resource_str  = "Resource: " + (mRes.empty() ? "" : mRes);
+
+		float width = GUI_MeasureRange(font_UI_Basic, full_path_str.length() > resource_str.length() ? full_path_str : resource_str);
+		//Draw a black background so we can always see the text
+		glColor3f(0, 0, 0);
+		glBegin(GL_POLYGON);
+			glVertex2f(b[0],          b[1]+20);
+			glVertex2f(b[0],          b[1]+60);
+			glVertex2f(b[0]+width+15, b[1]+60);
+			glVertex2f(b[0]+width+15, b[1]+20);
+		glEnd();
+
+
+		float text_color[4] = { 1,1,1,1 };
+		GUI_FontDraw(g, font_UI_Basic, text_color, b[0] + 5, b[1] + 25, full_path_str);
+		GUI_FontDraw(g, font_UI_Basic, text_color, b[0] + 5, b[1] + 45, resource_str);
+#endif
 		// plot some additional information about the previewed object
 		char buf[64] = "";
 		switch(mType)

@@ -374,6 +374,17 @@ inline void TT_establish_font(tt_t c){
 		tt_font[c]=new TT_font_info();
 		TT_reset_font(c);}}
 
+float GUI_MeasureRange(int inFontID, const string& inRange)
+{
+	if (inRange.empty())
+	{
+		return 0.0f;
+	}
+
+	const char* range = inRange.c_str();
+	return GUI_MeasureRange(inFontID, range, range + (strlen(range) - 1));
+}
+
 float GUI_MeasureRange(int inFontID, const char * inStart, const char * inEnd)
 {
 	if(inStart == inEnd) return 0.0f;
@@ -482,6 +493,11 @@ void	GUI_FontDraw(
 		inY - f->line_descent  + f->line_height,
 		inString, inString + strlen(inString),
 		align_Left);
+}
+
+void GUI_FontDraw(GUI_GraphState * inState, int inFontID, const float color[4], float inX, float inY, const string& inString)
+{
+	GUI_FontDraw(inState, inFontID, color, inX, inY, inString.c_str());
 }
 
 
