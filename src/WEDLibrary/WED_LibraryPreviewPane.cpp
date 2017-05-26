@@ -440,7 +440,9 @@ void	WED_LibraryPreviewPane::Draw(GUI_GraphState * g)
 				}
 				break;
 		}
+		#if !DEV
 		float text_color[4] = { 1,1,1,1 };
+		#endif
 		if (buf[0])
 			GUI_FontDraw(g, font_UI_Basic, text_color, b[0]+5,b[1] + 15, buf);
 		
