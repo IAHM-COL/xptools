@@ -3,8 +3,8 @@
 #######################
 
 TYPE			:= EXECUTABLE
-CFLAGS			+= -include ./src/Obj/XDefs.h
-CXXFLAGS		+= -include ./src/Obj/XDefs.h
+CFLAGS			+= -include ./src/Obj/XDefs.h -I/usr/include/freetype2 -I/usr/include/libgeotiff
+CXXFLAGS		+= -include ./src/Obj/XDefs.h -I/usr/include/freetype2 -I/usr/include/libgeotiff
 DEFINES			+= -DUSE_JPEG=1 -DUSE_TIF=1 -DWED=1 -DNO_CGAL=1
 FORCEREBUILD_SUFFIX	:= _wed
 
@@ -17,17 +17,17 @@ endif
 
 LDFLAGS		+= -rdynamic
 LDFLAGS		+= -Wl,--exclude-libs,ALL
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libexpat.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libsquish.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libsqlite3.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libgeotiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libproj.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libfreetype.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libtiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjpeg.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libpng.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjasper.a
+LIBS		+= -lexpat
+LIBS		+= -lsquish
+LIBS		+= -lsqlite3
+LIBS		+= -lgeotiff
+LIBS		+= -lproj
+LIBS		+= -lfreetype 
+LIBS		+= -ltiff
+LIBS		+= -ljpeg
+LIBS		+= -lpng
+LIBS		+= -lz
+LIBS		+= -ljasper
 LIBS		+= -lQtCore
 LIBS		+= -lQtGui
 LIBS		+= -lQtOpenGL

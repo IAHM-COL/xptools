@@ -8,8 +8,8 @@ CXXFLAGS	+= -include ./src/Obj/XDefs.h
 #FORCEREBUILD_SUFFIX := _dsft
 
 ifdef PLAT_LINUX
-LDFLAGS		+= -static
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
+#LDFLAGS		+= -static
+LIBS		+= -lz
 endif #PLAT_LINUX
 
 ifdef PLAT_MINGW

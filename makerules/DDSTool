@@ -9,13 +9,13 @@ DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1
 #FORCEREBUILD_SUFFIX := _ddst
 
 ifdef PLAT_LINUX
-LDFLAGS		+= -static
-LIBS		:= ./libs/local$(MULTI_SUFFIX)/lib/libsquish.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libtiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjpeg.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libpng.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjasper.a
+#LDFLAGS		+= -static
+LIBS		+= -lsquish
+LIBS		+= -ltiff
+LIBS		+= -ljpeg
+LIBS		+= -lpng
+LIBS		+= -lz
+LIBS		+= -ljasper
 endif #PLAT_LINUX
 
 ifdef PLAT_DARWIN
