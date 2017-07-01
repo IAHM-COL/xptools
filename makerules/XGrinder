@@ -9,7 +9,7 @@ CXXFLAGS	+= -include ./src/Obj/XDefs.h
 
 ifdef PLAT_LINUX
 #LDFLAGS		+= -nodefaultlibs
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
+LIBS		+= -lz
 LIBS		+= -lQtCore -lQtGui -lpthread
 endif #PLAT_LINUX
 

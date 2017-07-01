@@ -11,13 +11,13 @@ DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1
 ifdef PLAT_LINUX
 #LDFLAGS		+= -nodefaultlibs
 LDFLAGS		+= -Wl,--exclude-libs,libpng.a
-LIBS		:= ./libs/local$(MULTI_SUFFIX)/lib/libCGAL.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libsquish.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libtiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjpeg.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libpng.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjasper.a
+LIBS		:= -lCGAL
+LIBS		+= -lsquish
+LIBS		+= -ltiff
+LIBS		+= -ljpeg
+LIBS		+= -lpng
+LIBS		+= -lz
+LIBS		+= -ljasper
 LIBS		+= -lQtCore -lQtGui -lQtOpenGL -lGL -lGLU -ldl -lpthread
 endif #PLAT_LINUX
 

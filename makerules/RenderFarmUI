@@ -3,8 +3,8 @@
 #######################
 
 TYPE		:= EXECUTABLE
-CFLAGS		+= -include ./src/Obj/XDefs.h
-CXXFLAGS	+= -include ./src/Obj/XDefs.h
+CFLAGS		+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2
+CXXFLAGS	+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2
 DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1 -DOPENGL_MAP=1
 FORCEREBUILD_SUFFIX := _rfui
 
