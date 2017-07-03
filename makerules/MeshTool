@@ -3,25 +3,25 @@
 #######################
 
 TYPE		:= EXECUTABLE
-CFLAGS		+= -include ./src/Obj/XDefs.h
-CXXFLAGS	+= -include ./src/Obj/XDefs.h
+CFLAGS		+= -include ./src/Obj/XDefs.h  -I/usr/include/libgeotiff
+CXXFLAGS	+= -include ./src/Obj/XDefs.h  -I/usr/include/libgeotiff
 DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1
 #FORCEREBUILD_SUFFIX := _mt
 
 ifdef PLAT_LINUX
-LDFLAGS		+= -static
-LIBS		:= ./libs/local$(MULTI_SUFFIX)/lib/libCGAL.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libboost_thread.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libboost_system.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libsquish.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libgeotiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libshp.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libproj.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libtiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjpeg.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libpng.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjasper.a
+#LDFLAGS		+= -static
+LIBS		+= -lCGAL
+LIBS		+= -lboost_thread
+LIBS		+= -lboost_system
+LIBS		+= -lsquish
+LIBS		+= -lgeotiff
+LIBS		+= -lshp
+LIBS		+= -lproj
+LIBS		+= -ltiff
+LIBS		+= -ljpeg
+LIBS		+= -lpng
+LIBS		+= -lz
+LIBS		+= -ljasper
 LIBS		+= -lpthread -lrt
 endif #PLAT_LINUX
 
