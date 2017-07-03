@@ -3,20 +3,17 @@
 #######################
 
 TYPE		:= EXECUTABLE
-CFLAGS		+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2
-CXXFLAGS	+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2
+CFLAGS		+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2 -I/usr/include/libgeotiff
+CXXFLAGS	+= -include ./src/Obj/XDefs.h  -I/usr/include/freetype2 -I/usr/include/libgeotiff
 DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1 -DOPENGL_MAP=1
 FORCEREBUILD_SUFFIX := _rfui
 
 ifdef PLAT_LINUX
 LDFLAGS		+= -nodefaultlibs -rdynamic
 #LDFLAGS	+= -pie
-LIBS		+= -Wl,--as-needed
-LIBS		+= -Wl,-Bstatic -Wl,--start-group
 LIBS		+= -lexpat -lsquish -lsqlite3 -lshp -lgeotiff
 LIBS		+= -lCGAL -lCGAL_Core -lproj -lfreetype -ltiff -ljpeg -lpng -lz -ljasper
 LIBS		+= -lgmp -lmpfr -lstdc++ -lm -lgcc -lgcc_eh
-LIBS		+= -Wl,--end-group -Wl,-Bdynamic
 LIBS		+= -lQtCore -lQtGui -lQtOpenGL -lGL -lGLU -ldl -lc
 LIBS		+= -lboost_thread -lboost_system -lpthread
 endif #PLAT_LINUX

@@ -10,22 +10,22 @@ DEFINES		+= -DUSE_JPEG=1 -DUSE_TIF=1
 
 ifdef PLAT_LINUX
 
-LIBS		:= ./libs/local$(MULTI_SUFFIX)/lib/libCGAL.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libCGAL_Core.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libboost_thread.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libboost_system.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libmpfr.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libgmp.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libgmpxx.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libsquish.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libgeotiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libshp.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libproj.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libtiff.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjpeg.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libpng.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libz.a
-LIBS		+= ./libs/local$(MULTI_SUFFIX)/lib/libjasper.a
+LIBS		+= -lCGAL
+LIBS		+= -lCGAL_Core
+LIBS		+= -lboost_thread
+LIBS		+= -lboost_system
+LIBS		+= -lmpfr
+LIBS		+= -lgmp
+LIBS		+= -lgmpxx
+LIBS		+= -lsquish
+LIBS		+= -lgeotiff
+LIBS		+= -lshp
+LIBS		+= -lproj
+LIBS		+= -ltiff
+LIBS		+= -ljpeg
+LIBS		+= -lpng
+LIBS		+= -lz
+LIBS		+= -ljasper
 
 LIBS		+= -lpthread -lrt
 endif #PLAT_LINUX
