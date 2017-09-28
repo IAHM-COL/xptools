@@ -11,7 +11,9 @@ FORCEREBUILD_SUFFIX := _rfui
 ifdef PLAT_LINUX
 LDFLAGS		+= -nodefaultlibs -rdynamic
 #LDFLAGS	+= -pie
-LIBS		+= -lexpat -lsquish -lsqlite3 -lshp -lgeotiff
+LIBS		+= -Wl,--as-needed
+LIBS		+= -Wl,-Bstatic -Wl,--start-group
+LIBS		+= -lexpat -lsquish -lshp -lgeotiff
 LIBS		+= -lCGAL -lCGAL_Core -lproj -lfreetype -ltiff -ljpeg -lpng -lz -ljasper
 LIBS		+= -lgmp -lmpfr -lstdc++ -lm -lgcc -lgcc_eh
 LIBS		+= -lQtCore -lQtGui -lQtOpenGL -lGL -lGLU -ldl -lc

@@ -24,10 +24,10 @@
 #include "WED_LibraryMgr.h"
 #include "WED_PackageMgr.h"
 #include "WED_Messages.h"
-#include "XUtils.h"
 #include "AssertUtils.h"
 #include "PlatformUtils.h"
 #include "MemFileUtils.h"
+#include <time.h>
 
 static void clean_vpath(string& s)
 {
@@ -211,10 +211,10 @@ bool	WED_LibraryMgr::IsResourceDeprecatedOrPrivate(const string& r)
 		fixed[p] = '/';
 	res_map_t::const_iterator me = res_table.find(fixed);
 	if (me==res_table.end()) return false;
-	return me->second.status < status_Public;
+	return me->second.status < status_Yellow;                  // status "Yellow' is still deemed public wrt validation, i.e. allowed on the gateway
 }
 
-bool		WED_LibraryMgr::DoesPackHaveLibraryItems(int package)
+bool	WED_LibraryMgr::DoesPackHaveLibraryItems(int package)
 {
 	for(res_map_t::iterator i = res_table.begin(); i != res_table.end(); ++i)
 		if(i->second.packages.count(package))
@@ -360,6 +360,8 @@ void		WED_LibraryMgr::Rescan()
 						cur_status = status_Private;
 					else if(MFS_string_match(&s,"DEPRECATED",true)) 
 						cur_status = status_Deprecated;
+					else if(MFS_string_match(&s,"SEMI_DEPRECATED",true)) 
+						cur_status = status_Yellow;
 						
 					MFS_string_eol(&s,NULL);
 				}
@@ -385,20 +387,31 @@ void		WED_LibraryMgr::Rescan()
 
 void WED_LibraryMgr::AccumResource(const string& path, int package, const string& rpath, bool is_backup, bool is_default, int status)
 {
-	int								rt = res_None;
-	if(HasExtNoCase(path, ".obj"))	rt = res_Object;
-	if(HasExtNoCase(path, ".agp"))	rt = res_Object;
-	if(HasExtNoCase(path, ".fac"))	rt = res_Facade;
-	if(HasExtNoCase(path, ".for"))	rt = res_Forest;
-	if(HasExtNoCase(path, ".str"))	rt = res_String;
-	if(HasExtNoCase(path, ".ags"))	rt = res_Polygon;
-	if(HasExtNoCase(path, ".lin"))	rt = res_Line;
-	if(HasExtNoCase(path, ".pol"))	rt = res_Polygon;
-	if(HasExtNoCase(path, ".agb"))	rt = res_Polygon;
+
+    // surprise: This function is called 60,300 time upon loading any scenery. Yep, XP11 has that many items in the libraries.
+    // Resultingly the full path was converted to lower case 0.6 million times => 24 million calls to tolower() ... time to optimize
+    
+    if (path.length() < 5) return;
+
+	string suffix(path.substr(path.length()-4));
+	for (int i = 1; i < 4; ++i)
+	  suffix[i] = tolower(suffix[i]);
+	
+	int	rt;
+	
+	if     (suffix == ".obj") rt = res_Object;
+	else if(suffix == ".agp") rt = res_Object;
+	else if(suffix == ".fac") rt = res_Facade;
+	else if(suffix == ".for") rt = res_Forest;
+	else if(suffix == ".str") rt = res_String;
+	else if(suffix == ".ags") rt = res_Polygon;
+	else if(suffix == ".lin") rt = res_Line;
+	else if(suffix == ".pol") rt = res_Polygon;
+	else if(suffix == ".agb") rt = res_Polygon;
 #if ROAD_EDITING
-	if(HasExtNoCase(path, ".net"))	rt = res_Road;
+	else if(suffix == ".net") rt = res_Road;
 #endif
-	if(rt == res_None) return;
+	else return;
 
 	if (package >= 0 && status >= status_Public) gPackageMgr->HasPublicItems(package);
 
